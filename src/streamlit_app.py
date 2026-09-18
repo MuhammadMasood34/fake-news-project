@@ -121,6 +121,43 @@ def main() -> None:
             "For real-world use, verify claims against primary sources. This model was trained on a limited educational dataset."
         )
 
+        from linguistic_analysis import LinguisticAnalyzer
+        analyzer = LinguisticAnalyzer()
+        stats = analyzer.analyze(text)
+
+        st.divider()
+        st.subheader("LINGUISTIC CREDIBILITY")
+        
+        output_text = f"""{stats['score']}/100
+Linguistic Credibility Score
+
+Writing Statistics
+• Word Count: {stats['word_count']}
+• Sentence Count: {stats['sentence_count']}
+• Average Sentence Length: {stats['avg_sentence_length']}
+
+Language Patterns
+• Sentiment: {stats['sentiment_label']} ({stats['sentiment_score']})
+• Subjectivity: {stats['subjectivity_score']}
+• Sensationalism Indicators: {stats['sensationalism_count']}
+• Unattributed Claims: {stats['unattributed_claims_count']}
+
+Style Indicators
+• Exclamation Marks: {stats['exclamation_count']}
+• Question Marks: {stats['question_count']}
+• ALL-CAPS Words: {stats['all_caps_count']}
+• Capitalization Ratio: {stats['capitalization_ratio'] * 100:.1f}%
+
+Interpretation
+{stats['summary']}
+
+Note:
+These are linguistic indicators and language patterns
+associated with certain writing styles. They do not prove
+that an article is fake or real."""
+
+        st.code(output_text, language=None)
+
 
 if __name__ == "__main__":
     main()
